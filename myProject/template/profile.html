@@ -1,0 +1,78 @@
+{% extends "deshborad.html" %}
+
+{% block content %}
+{% csrf_token %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+    <div class="profile-container"> 
+        <div class="profile-header"> 
+            {% if user.user_type == 'recruiter' %} 
+     
+            <img class="profile-picture" src="/{{ request.user.Profile_picture }}" > 
+     
+            {% elif user.user_type == 'jobseeker' %} 
+     
+            <img class="profile-picture" src="/{{ request.user.Profile_picture }}" > 
+
+
+            {% elif user.user_type == 'generaluser' %} 
+     
+            <img class="profile-picture" src="/{{ request.user.Profile_picture }}" >  
+
+
+            {% elif user.user_type == 'stuff' %} 
+     
+            <img class="profile-picture" src="/{{ request.user.Profile_picture }}" > 
+              
+            {% endif%} 
+
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <p>{{message}}</p>
+            
+            {% endif%}
+            {% endfor %}
+            {% endif %}
+     
+            <h1>{{ request.user.username }}</h1> 
+            <p>{{ request.user.display_name }}</p> 
+            <p>{{ request.user.email }}</p> 
+            <a href="{% url 'EditprofilePage' %}" class="edit-profile-button">Edit Profile</a> 
+            <a href="{% url 'changepassPage' %}" class="edit-profile-button">Change Password</a>
+            {% if user.user_type == 'recruiter' %}  
+            <a href="{% url 'createdjobbyrecruiter' %}" class="edit-profile-button">Created Job</a> 
+            {% endif%} 
+
+            {% if user.user_type == 'jobseeker' %}  
+            <a href="{% url 'createdresumebyjobseeker' %}" class="edit-profile-button">Created Resume</a>
+            {% if user.jobseekerprofile.resumes %} 
+            <a href="{{request.user.jobseekerprofile.resumes.url}}" target="_blank" class="edit-profile-button">View Resume</a> 
+            {% endif %}
+            {% endif%}
+        </div> 
+     
+        <div class="profile-info"> 
+            <h2>User Type: {{ request.user.user_type }}</h2> 
+
+            {% if user.user_type == 'recruiter' %}  
+            <a href="" class="edit-profile-button">Edit</a>
+            <a href="" class="edit-profile-button">Update</a>
+            <a href="" class="edit-profile-button">Delete</a> 
+            {% endif%} 
+            
+            {% if user.user_type == 'jobseeker' %}  
+            <h2>Sklis:</h2> 
+            <p>{{ request.user.jobseekerprofile.skils }}</p> 
+
+            <h2>Resume:</h2> 
+            <p>{{ request.user.jobseekerprofile.resumes }}</p>
+
+            {% endif%} 
+            
+        </div> 
+    </div> 
+</form>
+
+
+{% endblock %}

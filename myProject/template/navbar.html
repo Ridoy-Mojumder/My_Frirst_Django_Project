@@ -1,0 +1,48 @@
+{% block content %}
+{% csrf_token %}
+
+<nav>
+    {% if user.user_type == "recruiter" %}
+    <a href="{% url 'deshboardPage' %}">Home</a>
+    <a href="{% url 'addjobPage' %}">AddJob </a>
+    <a href="{% url 'viewjobPage' %}">ViewJob </a>
+    <a href="{% url 'profilePage' %}">Profile</a>
+    <a href="{% url 'viewresumepage' %}">View Resume</a>
+    <a href="{% url 'logoutPage' %}">Logout</a>
+
+
+    {% elif user.user_type == "jobseeker" %}
+
+    <a href="{% url 'deshboardPage' %}">Home</a>
+    <a href="{% url 'viewjobPage' %}">ViewJob </a>
+    <a href="#viewjob">AppliedJOb </a>
+    <a href="{% url 'profilePage' %}">Profile</a>
+    <a href="{% url 'viewresumepage' %}">View Resume</a>
+    <a href="{% url 'logoutPage' %}">Logout</a>
+
+
+
+    {% elif user.user_type == "generaluser"%}
+
+    <a href="{% url 'deshboardPage' %}">Home</a>
+    <a href="{% url 'viewjobPage' %}">ViewJob</a>
+    <a href="#viewjob">Stuff </a>
+    <a href="#viewjob">JobSeeker</a>
+    <a href="#viewjob">Recruiter</a>
+    <a href="{% url 'profilePage' %}"">Profile</a>
+    <a href="{% url 'logoutPage' %}">Logout</a>
+
+
+    {% elif user.user_type == "stuff"%}
+
+    <a href="{% url 'deshboardPage' %} ">Home</a>
+    <a href="{% url 'addjobPage' %}">Add Job</a>
+    <a href="#viewjob">Show Applaier</a>
+    <a href="{% url 'profilePage' %}"">Profile</a>
+    <a href="{% url 'logoutPage' %}">Logout</a>
+
+    {% endif %}
+</nav>
+
+
+{% endblock %}

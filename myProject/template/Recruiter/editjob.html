@@ -1,0 +1,71 @@
+{% extends "deshborad.html" %}
+
+{% block content %}
+{% csrf_token %}
+
+<div class="container">
+    <h2 style="text-align: center;">Job Application Form</h2>
+    <br>
+    <hr>
+    <br>
+    <form action="{% url 'updatePage' %} " method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for i in job %}
+        <div class="form-group">
+            <label for="jobTitle">Job ID:</label>
+            <input type="text" value="{{i.id}}" id="jobid" name="jobid" required>
+        </div>
+
+
+
+    
+
+        <div class="form-group">
+            <label for="jobTitle">Job Title:</label>
+            <input type="text" value="{{i.job_title}}" id="jobTitle" name="jobTitle" required>
+        </div>
+
+        <div class="form-group">
+            <label for="companyName">Company Name:</label>
+            <input type="text" value="{{i.company_name}}" id="companyName" name="companyName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" value="{{i.location}}" id="location" name="location" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Job Description:</label>
+            <textarea id="description" name="description" required>{{i.description}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="companydescription">Company Description:</label>
+            <textarea id="companydescription" name="companydescription" required>{{i.company_description}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="qualifications">Qualifications:</label>
+            <textarea id="qualifications" name="qualifications" required>{{i.Qualifications}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="deadline">DeadLine:</label>
+            <input type="text" id="deadline" value="{{i.deadline}}" name="deadline" required>
+        </div>
+
+        <div class="form-group">
+            <label for="profilePicture">Profile Picture</label>
+            <input type="file" class="form-control-file" id="profilePicture" name="profilePicture" value="{{i.Profile_Pic}}">
+            <small class="form-text text-muted">Upload your Picture in FILE format.</small>
+        </div>
+        {% endfor %}
+
+        <button type="submit">Update the job</button>
+    </form>
+</div>
+
+
+
+{% endblock %}

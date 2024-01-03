@@ -1,0 +1,48 @@
+{% extends "deshborad.html" %}
+
+{% block content %}
+{% csrf_token %}
+
+
+<section class="job-listings"> 
+    <h2>Latest Job Listings</h2> 
+    <ul> 
+        <form method="post" enctype="multipart/form-data">
+        {% for i in job %}
+        <li> 
+            <h3>{{i.job_title}}</h3> 
+            <p>Company: {{i.company_name}}</p> 
+            <p>Location: {{i.location}}</p> 
+            <p>Job Description: {{i.description}}</p>
+            <p>Company Description: {{i.company_description}}</p>
+            <p>Qualifications: {{i.Qualifications}}</p> 
+            <p>DeadLine: {{i.deadline}}</p> 
+            <p>Creat_at: {{i.create_at}}</p> 
+            <p>Update_at: {{i.update_time}}</p> 
+
+            <p>Image: </p> 
+            <img src="/{{i.Profile_Pic}}" style="width:300px; height: 300px;">
+
+            {% if user.user_type == 'recruiter' %}  
+            <p>Create By: {{i.job_creator}}</p> 
+            <p>Create Time: {{i.create_at}}</p> 
+            <p>Update Time: {{i.update_time}}</p> 
+            {% endif%} 
+            {% if user.user_type == 'jobseeker' %}
+                <a href="{% url 'applyPage' i.id %}">Apply Now</a> 
+            {% endif %}
+            {% if user.user_type == 'recruiter' %}
+                <a href="{% url 'editPage' i.id %}">Edit</a> 
+                <a href="{% url 'deletePage' i.id %}">Delete</a>
+            {% endif %}
+            {% if user.user_type == 'generaluser' %}
+                
+            {% endif %}
+        </li> 
+        {% endfor %}
+    </form>
+    </ul> 
+</section> 
+
+
+{% endblock %}
